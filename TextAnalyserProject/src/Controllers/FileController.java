@@ -29,6 +29,7 @@ public class FileController {
 
     }
 
+
     public static int punctuationMarkCount() {
         String file = "plik.txt";
         String words = null;
@@ -66,6 +67,7 @@ public class FileController {
         return number;
 
     }
+
     public static int wordCount()
 
       {
@@ -79,6 +81,7 @@ public class FileController {
             String[] w = words.split("\\s");
             return w.length - 1;
         }
+
 
 //    public static int letterCount() {
 //        String file = "plik.txt";
