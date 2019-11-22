@@ -72,7 +72,9 @@ public class InputController {
 
                 break;
             case 2:
-                System.out.println("ZLiczanieliter");
+                System.out.println("Zliczanie liter");
+                int chars = FileController.charCount();
+                System.out.printf("Plik ma %d liter\n", chars);
                 break;
             case 3:
                 System.out.println("Zliczanie wyrazów");
@@ -81,6 +83,8 @@ public class InputController {
                 break;
             case 4:
                 System.out.println("Zliczanie znaków interounkcyjnych");
+                int marks = FileController.punctuationMarkCount();
+                System.out.printf("Plik ma %d znakow interpunkcyjnych\n", marks);
                 break;
             case 5:
                 System.out.println("Zliczanie zdań");
@@ -92,7 +96,9 @@ public class InputController {
                 System.out.println("Zapisywanie w pliku");
                 break;
             case 8:
+                FileController.deleteFile("plik.txt");
                 System.out.println("papa");
+                System.exit(0);
                 break;
         }
     }
