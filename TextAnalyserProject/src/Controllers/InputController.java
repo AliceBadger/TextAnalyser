@@ -10,7 +10,9 @@ public class InputController {
             printMenu();
             int input = getUserInput();
             handleInput(input);
-            System.out.println("Naciśnij dowolny przycisk aby kontynuować");
+            if(input != 8) {
+                System.out.println("Naciśnij dowolny przycisk aby kontynuować");
+            }
             scanner.nextLine();
         }
 
@@ -67,7 +69,7 @@ public class InputController {
                 System.out.println("Zliczanie znaków interounkcyjnych");
                 break;
             case 5:
-                System.out.println("Zliczanie zdań");
+                fileController.printStatementsInFileCount();
                 break;
             case 6:
                 System.out.println("Generowanie raportu");
