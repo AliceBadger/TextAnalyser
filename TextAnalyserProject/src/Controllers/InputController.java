@@ -1,4 +1,5 @@
 package Controllers;
+import java.io.File;
 import java.util.Scanner;
 
 public class InputController {
@@ -51,12 +52,13 @@ public class InputController {
     }
 
     private void handleInput (int input) {
+        FileController fileController = new FileController();
         switch(input) {
             case 1:
                 System.out.println("Pobranie pliku");
                 break;
             case 2:
-                System.out.println("ZLiczanieliter");
+                fileController.printLettersInFileCount();
                 break;
             case 3:
                 System.out.println("Zliczanie wyrazów");
