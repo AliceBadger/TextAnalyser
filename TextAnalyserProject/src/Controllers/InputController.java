@@ -19,7 +19,7 @@ public class InputController {
         System.out.println("1. Pobierz plik z internetu");
         System.out.println("2. Zlicz liczbę liter w pobranym pliku");
         System.out.println("3. Zlicz liczbę wyrazów w pliku");
-        System.out.println("4. Zlcz liczbę liczbę znaków interpunkcyjnych w pliku");
+        System.out.println("4. Zlicz liczbę znaków interpunkcyjnych w pliku");
         System.out.println("5. Zlicz liczbę zdań w pliku");
         System.out.println("6. Wygeneruj raport o użyciu liter (A-Z)");
         System.out.println("7. Zapisz statystyki z punktów 2-5 do pliku statystyki.txt");
