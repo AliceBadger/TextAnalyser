@@ -79,6 +79,26 @@ public class FileController {
             String[] w = words.split("\\s");
             return w.length - 1;
         }
+
+//    public static int letterCount() {
+//        String file = "plik.txt";
+//        String words = null;
+//        try {
+//            words = new String(Files.readAllBytes(Paths.get(file)));
+//        } catch (IOException e) {
+//            throw new NullPointerException("File not found");
+//        }
+//        int number = 0;
+//        String letter = "abcdefghijk";
+//        for (int i = 0, length = words.length(); i < length; i++) {
+//            if (new String(letter).contains(String.valueOf(words.charAt(i)))) {
+//
+//                number++;
+//            }
+//
+//        }
+//        return number;
+    }
     public static void deleteFile(String filePath) {
         File file = new File(filePath);
         if (!file.exists()) {

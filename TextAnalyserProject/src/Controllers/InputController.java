@@ -72,7 +72,7 @@ public class InputController {
 
                 break;
             case 2:
-                System.out.println("Zliczanieliter");
+                System.out.println("Zliczanie liter");
                 int chars = FileController.charCount();
                 System.out.printf("Plik ma %d liter\n", chars);
                 break;
