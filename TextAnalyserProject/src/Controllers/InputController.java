@@ -7,7 +7,15 @@ public class InputController {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             printMenu();
+            try {
+                FileController.downloadFile();
+            }
+            catch(Exception e) {
+                System.out.println("Ups nie udało się pobrać pliku.");
+
+            }
             int input = getUserInput();
+
             handleInput(input);
             System.out.println("Naciśnij dowolny przycisk aby kontynuować");
             scanner.nextLine();
@@ -54,6 +62,8 @@ public class InputController {
         switch(input) {
             case 1:
                 System.out.println("Pobranie pliku");
+                FileController fc = new FileController();
+
                 break;
             case 2:
                 System.out.println("ZLiczanieliter");
