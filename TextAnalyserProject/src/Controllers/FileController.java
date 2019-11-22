@@ -39,6 +39,15 @@ public class FileController {
             String[] w = words.split("\\s");
             return w.length - 1;
         }
+    public static void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+          System.out.println("Plik nie istnieje");
+        }
+        else {
+            file.delete();
+        }
+    }
 
 
 

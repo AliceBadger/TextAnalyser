@@ -72,7 +72,7 @@ public class InputController {
 
                 break;
             case 2:
-                System.out.println("ZLiczanieliter");
+                System.out.println("Zliczanieliter");
                 break;
             case 3:
                 System.out.println("Zliczanie wyrazów");
@@ -92,7 +92,9 @@ public class InputController {
                 System.out.println("Zapisywanie w pliku");
                 break;
             case 8:
+                FileController.deleteFile("plik.txt");
                 System.out.println("papa");
+                System.exit(0);
                 break;
         }
     }
