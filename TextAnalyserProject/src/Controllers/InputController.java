@@ -8,7 +8,15 @@ public class InputController {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             printMenu();
+            try {
+                FileController.downloadFile();
+            }
+            catch(Exception e) {
+                System.out.println("Ups nie udało się pobrać pliku.");
+
+            }
             int input = getUserInput();
+
             handleInput(input);
             System.out.println("Naciśnij dowolny przycisk aby kontynuować");
             scanner.nextLine();
@@ -56,15 +64,30 @@ public class InputController {
         switch(input) {
             case 1:
                 System.out.println("Pobranie pliku");
+                try {
+                    FileController.downloadFile();
+                }
+                catch(Exception e) {
+                    System.out.println("Ups nie udało się pobrać pliku.");
+
+                }
+
                 break;
             case 2:
                 fileController.printLettersInFileCount();
+                //System.out.println("Zliczanie liter");
+                //int chars = FileController.charCount();
+                //System.out.printf("Plik ma %d liter\n", chars);
                 break;
             case 3:
                 System.out.println("Zliczanie wyrazów");
+                int words = FileController.wordCount();
+                System.out.printf("Plik ma %d wyrazów\n",words);
                 break;
             case 4:
                 System.out.println("Zliczanie znaków interounkcyjnych");
+                int marks = FileController.punctuationMarkCount();
+                System.out.printf("Plik ma %d znakow interpunkcyjnych\n", marks);
                 break;
             case 5:
                 System.out.println("Zliczanie zdań");
@@ -76,7 +99,9 @@ public class InputController {
                 System.out.println("Zapisywanie w pliku");
                 break;
             case 8:
+                FileController.deleteFile("plik.txt");
                 System.out.println("papa");
+                System.exit(0);
                 break;
         }
     }
