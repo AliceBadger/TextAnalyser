@@ -93,7 +93,12 @@ public class InputController {
                 System.out.println("Zliczanie zdań");
                 break;
             case 6:
-                System.out.println("Generowanie raportu");
+                String result = fileController.generateRaport(fileController.getFile("8.txt"));
+                if(result == null) {
+                    System.out.println("Brak pliku");
+                } else {
+                    System.out.println(result);
+                }
                 break;
             case 7:
                 System.out.println("Zapisywanie w pliku");
