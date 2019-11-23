@@ -182,7 +182,7 @@ public class FileController {
 
     public String generateRaport(File file) {
         if(file != null) {
-            int[] asciis = new int[127];
+            int[] asciis = new int[255];
             try {
                 FileInputStream fis = new FileInputStream(file);
                 char character = 0;
