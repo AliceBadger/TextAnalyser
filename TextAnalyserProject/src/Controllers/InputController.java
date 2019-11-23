@@ -3,19 +3,24 @@ import java.io.File;
 import java.util.Scanner;
 
 public class InputController {
-    // wyświetlanie menu, obsługiwanie inputu, zlecanie odpowiednich zadań na podstawie inputów
     public void initialize () {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             printMenu();
+            try {
+                FileController.downloadFile();
+            }
+            catch(Exception e) {
+                System.out.println("Ups nie udało się pobrać pliku.");
+            }
             int input = getUserInput();
+
             handleInput(input);
             if(input != 8) {
                 System.out.println("Naciśnij dowolny przycisk aby kontynuować");
             }
             scanner.nextLine();
         }
-
     }
 
     private void printMenu() {
@@ -57,13 +62,20 @@ public class InputController {
         FileController fileController = new FileController();
         switch(input) {
             case 1:
-                System.out.println("Pobranie pliku");
+                System.out.println("Pobieranie pliku");
+                try {
+                    FileController.downloadFile();
+                }
+                catch(Exception e) {
+                    System.out.println("Ups, nie udało się pobrać pliku.");
+                }
                 break;
             case 2:
                 fileController.printLettersInFileCount();
                 break;
             case 3:
-                System.out.println("Zliczanie wyrazów");
+                int words = FileController.wordCount();
+                System.out.printf("Plik ma %d wyrazów\n",words);
                 break;
             case 4:
                 fileController.printPunctationsMarksInFileCount();
@@ -72,13 +84,28 @@ public class InputController {
                 fileController.printStatementsInFileCount();
                 break;
             case 6:
-                System.out.println("Generowanie raportu");
+                String result = fileController.generateRaport(fileController.getFile("8.txt"));
+                if(result == null) {
+                    System.out.println("Brak pliku");
+                } else {
+                    System.out.println(result);
+                }
                 break;
             case 7:
-                System.out.println("Zapisywanie w pliku");
+                String data = fileController.generateRaport(fileController.getFile("8.txt"));
+                if(data == null) {
+                    System.out.println("Brak pliku źródłowego");
+                } else {
+                    boolean isSuccess = fileController.saveDataInFile(data);
+                    if(isSuccess) {
+                        System.out.println("Sukces!");
+                    }
+                }
                 break;
             case 8:
+                FileController.deleteFile("plik.txt");
                 System.out.println("papa");
+                System.exit(0);
                 break;
         }
     }
