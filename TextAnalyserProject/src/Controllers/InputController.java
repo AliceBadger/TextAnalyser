@@ -100,7 +100,15 @@ public class InputController {
                 }
                 break;
             case 7:
-                System.out.println("Zapisywanie w pliku");
+                String data = fileController.generateRaport(fileController.getFile("8.txt"));
+                if(data == null) {
+                    System.out.println("Brak pliku źródłowego");
+                } else {
+                    boolean isSuccess = fileController.saveDataInFile(data);
+                    if(isSuccess) {
+                        System.out.println("Sukces!");
+                    }
+                }
                 break;
             case 8:
                 FileController.deleteFile("plik.txt");
