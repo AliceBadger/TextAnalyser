@@ -3,7 +3,6 @@ import java.io.File;
 import java.util.Scanner;
 
 public class InputController {
-    // wyświetlanie menu, obsługiwanie inputu, zlecanie odpowiednich zadań na podstawie inputów
     public void initialize () {
         Scanner scanner = new Scanner(System.in);
         while(true) {
@@ -13,15 +12,15 @@ public class InputController {
             }
             catch(Exception e) {
                 System.out.println("Ups nie udało się pobrać pliku.");
-
             }
             int input = getUserInput();
 
             handleInput(input);
-            System.out.println("Naciśnij dowolny przycisk aby kontynuować");
+            if(input != 8) {
+                System.out.println("Naciśnij dowolny przycisk aby kontynuować");
+            }
             scanner.nextLine();
         }
-
     }
 
     private void printMenu() {
@@ -90,7 +89,7 @@ public class InputController {
                 System.out.printf("Plik ma %d znakow interpunkcyjnych\n", marks);
                 break;
             case 5:
-                System.out.println("Zliczanie zdań");
+                fileController.printStatementsInFileCount();
                 break;
             case 6:
                 String result = fileController.generateRaport(fileController.getFile("8.txt"));
