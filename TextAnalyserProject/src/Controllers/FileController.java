@@ -64,7 +64,7 @@ public class FileController {
                     }
                     prevCharacter = character;
                 }
-                if(character == '.'|| character == '!' || character == '?') {
+                if (character == '.' || character == '!' || character == '?') {
                     sum++;
                 }
                 return sum;
@@ -86,5 +86,38 @@ public class FileController {
             System.out.println("Brak pliku");
     }
 
+    private int getPunctationMarksCount(File file) {
+        if (file != null) {
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                char character = 0;
+                int sum = 0;
+                while (fis.available() > 0) {
+                    character = (char) fis.read();
+                    int ascii = (int) character;
+                    if (ascii == 46 || ascii == 44 || ascii == 33 || ascii == 63 || ascii == 58 || ascii == 59 ||
+                            ascii == 45 || ascii == 96 || ascii == 34 || ascii == 39 || ascii == 40 || ascii == 41 ||
+                            ascii == 91 || ascii == 93) {
+                        sum++;
+                    }
+                }
+                return sum;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return -1;
+            }
+        }
+        return -1;
 
+
+    }
+
+    public void printPunctationsMarksInFileCount() {
+        File file = getFile("8.txt");
+        if (file != null) {
+            int sum = getPunctationMarksCount(file);
+            System.out.println("Liczba znaków interpunkcyjnych znajdujących się w pliku: " + sum);
+        } else
+            System.out.println("Brak pliku");
+    }
 }

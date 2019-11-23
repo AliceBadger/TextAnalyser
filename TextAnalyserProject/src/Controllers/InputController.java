@@ -66,7 +66,7 @@ public class InputController {
                 System.out.println("Zliczanie wyrazów");
                 break;
             case 4:
-                System.out.println("Zliczanie znaków interounkcyjnych");
+                fileController.printPunctationsMarksInFileCount();
                 break;
             case 5:
                 fileController.printStatementsInFileCount();
