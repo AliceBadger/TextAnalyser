@@ -62,31 +62,23 @@ public class InputController {
         FileController fileController = new FileController();
         switch(input) {
             case 1:
-                System.out.println("Pobranie pliku");
+                System.out.println("Pobieranie pliku");
                 try {
                     FileController.downloadFile();
                 }
                 catch(Exception e) {
-                    System.out.println("Ups nie udało się pobrać pliku.");
-
+                    System.out.println("Ups, nie udało się pobrać pliku.");
                 }
-
                 break;
             case 2:
                 fileController.printLettersInFileCount();
-                //System.out.println("Zliczanie liter");
-                //int chars = FileController.charCount();
-                //System.out.printf("Plik ma %d liter\n", chars);
                 break;
             case 3:
-                System.out.println("Zliczanie wyrazów");
                 int words = FileController.wordCount();
                 System.out.printf("Plik ma %d wyrazów\n",words);
                 break;
             case 4:
-                System.out.println("Zliczanie znaków interounkcyjnych");
-                int marks = FileController.punctuationMarkCount();
-                System.out.printf("Plik ma %d znakow interpunkcyjnych\n", marks);
+                fileController.printPunctationsMarksInFileCount();
                 break;
             case 5:
                 fileController.printStatementsInFileCount();

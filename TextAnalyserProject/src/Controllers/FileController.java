@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 
 
 public class FileController {
+
     public File getFile(String fileName) {
         File file = new File(fileName);
         boolean fileExists = file.exists();
@@ -77,7 +78,7 @@ public class FileController {
                     }
                     prevCharacter = character;
                 }
-                if(character == '.'|| character == '!' || character == '?') {
+                if (character == '.' || character == '!' || character == '?') {
                     sum++;
                 }
                 return sum;
@@ -87,7 +88,6 @@ public class FileController {
             }
         }
         return -1;
-
     }
 
     public void printStatementsInFileCount() {
@@ -100,133 +100,47 @@ public class FileController {
     }
 
     public static void downloadFile() throws MalformedURLException {
-
-
         try (BufferedInputStream in = new BufferedInputStream(new URL("https://s3.zylowski.net/public/input/8.txt").openStream())) {
-            try (FileOutputStream fileOutputStream = new FileOutputStream("plik.txt")) {
+            try (FileOutputStream fileOutputStream = new FileOutputStream("8.txt")) {
                 byte dataBuffer[] = new byte[1024];
                 int bytesRead;
-
                 while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                     fileOutputStream.write(dataBuffer, 0, bytesRead);
                 }
             }
         } catch (IOException e) {
-            // handle exception
         }
-
     }
 
-
-    public static int punctuationMarkCount() {
-        String file = "plik.txt";
+    public static int wordCount() {
+        String file = "8.txt";
         String words = null;
         try {
             words = new String(Files.readAllBytes(Paths.get(file)));
         } catch (IOException e) {
             throw new NullPointerException("File not found");
         }
-        int number = 0;
-        char array[] = {',','.', ';', ':','-', '?', '!', '"', '(', ')'};
-        for (int i = 0, length = words.length(); i < length; i++) {
-            if (new String(array).contains(String.valueOf(words.charAt(i)))) {
-
-                number++;
-            }
-
-        }
-        return number;
+        String[] w = words.split("\\s");
+        return w.length - 1;
     }
-  
-    public static int charCount() {
-        String file = "plik.txt";
-        String words = null;
-        try {
-            words = new String(Files.readAllBytes(Paths.get(file)));
-        } catch (IOException e) {
-            throw new NullPointerException("File not found");
-        }
-        int number = 0;
-        for (int i = 0, length = words.length(); i < length; i++) {
-            if (words.charAt(i) != ' ') {
-                number++;
-            }
-        }
-        return number;
-
-    }
-
-    public static int wordCount()
-
-      {
-            String file = "plik.txt";
-            String words = null;
-            try {
-                words = new String(Files.readAllBytes(Paths.get(file)));
-            } catch (IOException e) {
-                throw new NullPointerException("File not found");
-            }
-            String[] w = words.split("\\s");
-            return w.length - 1;
-        }
-
-
-//    public static int letterCount() {
-//        String file = "plik.txt";
-//        String words = null;
-//        try {
-//            words = new String(Files.readAllBytes(Paths.get(file)));
-//        } catch (IOException e) {
-//            throw new NullPointerException("File not found");
-//        }
-//        int number = 0;
-//        String letter = "abcdefghijk";
-//        for (int i = 0, length = words.length(); i < length; i++) {
-//            if (new String(letter).contains(String.valueOf(words.charAt(i)))) {
-//
-//                number++;
-//            }
-//
-//        }
-//        return number;
 
     public static void deleteFile(String filePath) {
         File file = new File(filePath);
         if (!file.exists()) {
-          System.out.println("Plik nie istnieje");
+            System.out.println("Plik nie istnieje");
         }
         else {
             file.delete();
         }
     }
 
-    public String generateRaport(File file) {
-        if(file != null) {
-            int[] asciis = new int[127];
-            try {
-                FileInputStream fis = new FileInputStream(file);
-                char character = 0;
-                int sum = 0;
-                while (fis.available() > 0) {
-                    character = (char) fis.read();
-                    int ascii = (int) character;
-                    asciis[ascii]++;
-                }
-                String data = "";
-                for(int i = 65; i < 91; i++) {
-                    data += Character.toString((char) i) + ": " + Integer.toString(asciis[i]) + "\n";
-                }
-                for(int i = 97; i < 123; i++) {
-                    data += Character.toString((char) i) + ": " + Integer.toString(asciis[i]) + "\n";
-                }
-                return data;
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return null;
+    public void printPunctationsMarksInFileCount() {
+        File file = getFile("8.txt");
+        if (file != null) {
+            int sum = getPunctationMarksCount(file);
+            System.out.println("Liczba znaków interpunkcyjnych znajdujących się w pliku: " + sum);
+        } else
+            System.out.println("Brak pliku");
     }
 
     public boolean saveDataInFile (String data){
@@ -240,6 +154,55 @@ public class FileController {
             e.printStackTrace();
             return false;
         }
+    }
 
+    private int getPunctationMarksCount(File file) {
+        if (file != null) {
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                char character = 0;
+                int sum = 0;
+                while (fis.available() > 0) {
+                    character = (char) fis.read();
+                    int ascii = (int) character;
+                    if (ascii == 46 || ascii == 44 || ascii == 33 || ascii == 63 || ascii == 58 || ascii == 59 ||
+                            ascii == 45 || ascii == 96 || ascii == 34 || ascii == 39 || ascii == 40 || ascii == 41 ||
+                            ascii == 91 || ascii == 93) {
+                        sum++;
+                    }
+                }
+                return sum;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return -1;
+            }
+        }
+        return -1;
+    }
+
+    public String generateRaport(File file) {
+        if(file != null) {
+            int[] asciis = new int[255];
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                char character = 0;
+                while (fis.available() > 0) {
+                    character = (char) fis.read();
+                    int ascii = (int) character;
+                    asciis[ascii]++;
+                }
+                String data = "";
+                for(int i = 65; i < 91; i++) {
+                    data += Character.toString((char) i) + ": " + Integer.toString(asciis[i]) + "\n";
+                }
+                for(int i = 97; i < 123; i++) {
+                    data += Character.toString((char) i) + ": " + Integer.toString(asciis[i]) + "\n";
+                }
+                return data;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
