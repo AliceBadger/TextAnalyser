@@ -101,7 +101,7 @@ public class FileController {
 
     public static void downloadFile() throws MalformedURLException {
         try (BufferedInputStream in = new BufferedInputStream(new URL("https://s3.zylowski.net/public/input/8.txt").openStream())) {
-            try (FileOutputStream fileOutputStream = new FileOutputStream("plik.txt")) {
+            try (FileOutputStream fileOutputStream = new FileOutputStream("8.txt")) {
                 byte dataBuffer[] = new byte[1024];
                 int bytesRead;
                 while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
@@ -109,12 +109,11 @@ public class FileController {
                 }
             }
         } catch (IOException e) {
-            // handle exception
         }
     }
 
     public static int wordCount() {
-        String file = "plik.txt";
+        String file = "8.txt";
         String words = null;
         try {
             words = new String(Files.readAllBytes(Paths.get(file)));
