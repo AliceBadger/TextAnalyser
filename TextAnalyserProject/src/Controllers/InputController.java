@@ -1,4 +1,5 @@
 package Controllers;
+import java.io.File;
 import java.util.Scanner;
 
 public class InputController {
@@ -59,6 +60,7 @@ public class InputController {
     }
 
     private void handleInput (int input) {
+        FileController fileController = new FileController();
         switch(input) {
             case 1:
                 System.out.println("Pobranie pliku");
@@ -72,9 +74,10 @@ public class InputController {
 
                 break;
             case 2:
-                System.out.println("Zliczanie liter");
-                int chars = FileController.charCount();
-                System.out.printf("Plik ma %d liter\n", chars);
+                fileController.printLettersInFileCount();
+                //System.out.println("Zliczanie liter");
+                //int chars = FileController.charCount();
+                //System.out.printf("Plik ma %d liter\n", chars);
                 break;
             case 3:
                 System.out.println("Zliczanie wyrazów");
