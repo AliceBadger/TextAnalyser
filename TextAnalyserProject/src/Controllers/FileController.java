@@ -228,4 +228,18 @@ public class FileController {
         }
         return null;
     }
+
+    public boolean saveDataInFile (String data){
+        try {
+            File file = new File("statystyki.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("statystyki.txt"));
+            bufferedWriter.write(data);
+            bufferedWriter.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 }
