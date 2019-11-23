@@ -20,7 +20,7 @@ import java.io.FileInputStream;
 
 
 public class FileController {
-    private File getFile(String fileName) {
+    public File getFile(String fileName) {
         File file = new File(fileName);
         boolean fileExists = file.exists();
         if (fileExists) {
@@ -198,5 +198,34 @@ public class FileController {
         else {
             file.delete();
         }
+    }
+
+    public String generateRaport(File file) {
+        if(file != null) {
+            int[] asciis = new int[127];
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                char character = 0;
+                int sum = 0;
+                while (fis.available() > 0) {
+                    character = (char) fis.read();
+                    int ascii = (int) character;
+                    asciis[ascii]++;
+                }
+                String data = "";
+                for(int i = 65; i < 91; i++) {
+                    data += Character.toString((char) i) + ": " + Integer.toString(asciis[i]) + "\n";
+                }
+                for(int i = 97; i < 123; i++) {
+                    data += Character.toString((char) i) + ": " + Integer.toString(asciis[i]) + "\n";
+                }
+                return data;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
     }
 }
