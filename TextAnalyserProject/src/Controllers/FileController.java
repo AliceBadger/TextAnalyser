@@ -31,33 +31,46 @@ public class FileController {
         }
     }
 
-    private int getLettersCount(File file) {
+    private StringParameters getLettersCount(File file) {
         if (file != null) {
             try {
                 FileInputStream fis = new FileInputStream(file);
                 char character = 0;
-                int sum = 0;
+                StringParameters parameters = new StringParameters();
                 while (fis.available() > 0) {
                     character = (char) fis.read();
                     int ascii = (int) character;
                     if ((ascii >= 64 && ascii <= 90) || (ascii >= 97 && ascii <= 122)) {
-                        sum++;
+                        parameters.lettersCount++;
+                    }
+                    if (ascii == 97 || ascii == 101 || ascii == 105 || ascii == 111 || ascii == 117
+                            || ascii == 121 || ascii == 65 || ascii == 69 || ascii == 73 || ascii == 79
+                            || ascii == 85 || ascii == 89) {
+                        parameters.vowelsCount++;
+                    }
+                    if ((ascii > 65 && ascii < 69) || (ascii > 69  && ascii < 73) || (ascii > 73 || ascii < 79)
+                                || (ascii > 79 && ascii < 85) || (ascii > 85 && ascii < 89) || ascii ==90 ||
+                                (ascii > 97 && ascii < 101) || (ascii > 101 && ascii <105) || (ascii > 105 && ascii < 111)
+                                || (ascii > 111 && ascii < 117) || (ascii > 117 && ascii < 121) || ascii ==122) {
+                        parameters.consonantsCount++;
                     }
                 }
-                return sum;
+                return parameters;
             } catch (IOException e) {
                 e.printStackTrace();
-                return -1;
+                return null;
             }
         }
-        return -1;
+        return null;
     }
 
     public void printLettersInFileCount() {
         File file = getFile("8.txt");
         if (file != null) {
-            int sum = getLettersCount(file);
-            System.out.println("Liczba liter znajdujących się w pliku: " + sum);
+            StringParameters parameters = getLettersCount(file);
+            System.out.println("Liczba liter znajdujących się w pliku: " + parameters.lettersCount);
+            System.out.println("Liczba samogłosek znajdujących się w pliku: " + parameters.vowelsCount);
+            System.out.println("Liczba spółgłosek znajdujących się w pliku: " + parameters.consonantsCount);
         } else
             System.out.println("Brak pliku");
     }
