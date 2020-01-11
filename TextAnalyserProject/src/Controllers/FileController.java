@@ -121,13 +121,7 @@ public class FileController {
             throw new NullPointerException("File not found");
         }
         String[] w = words.split("\\s");
-        int wordsCount = 0;
-        for(int i = 0; i < w.length; i++) {
-            if( w[i].length() > 1) {
-                wordsCount ++;
-            }
-        }
-        return wordsCount;
+        return w.length - 1;
     }
 
     public static void deleteFile(String filePath) {
