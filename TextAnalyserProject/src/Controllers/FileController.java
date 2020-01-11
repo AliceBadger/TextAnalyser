@@ -82,17 +82,23 @@ public class FileController {
                 char character = 0;
                 int sum = 0;
                 char prevCharacter = 0;
+                char prevPunctuationMark = 0;
                 while (fis.available() > 0) {
                     character = (char) fis.read();
                     if (character == ' ') {
                         if (prevCharacter == '.' || prevCharacter == '!' || prevCharacter == '?') {
-                            sum++;
+                            prevPunctuationMark = prevCharacter;
+                            if(prevPunctuationMark == prevCharacter) {
+                                sum++;
+                            }
                         }
                     }
                     prevCharacter = character;
                 }
                 if (character == '.' || character == '!' || character == '?') {
-                    sum++;
+                    if(prevPunctuationMark == prevCharacter) {
+                        sum++;
+                    }
                 }
                 return sum;
             } catch (IOException e) {
